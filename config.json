@@ -1,0 +1,19 @@
+{
+  "webhook_url": "",
+  "plataformas": ["instagram"],
+  "modo": "gerador",
+  "intervalo_segundos": 6,
+  "delay_entre_checks": 0,
+  "jitter": 0.6,
+  "workers": 14,
+  "gerador": {
+    "qtd_3c_por_rodada": 50,
+    "qtd_3l_por_rodada": 10,
+    "qtd_4l_por_rodada": 55,
+    "semi_ratio_3c": 0.50,
+    "usar_ponto": true
+  },
+  "abrir_navegador_no_hit": true,
+  "som_no_hit": true,
+  "blocklist_extra": []
+}

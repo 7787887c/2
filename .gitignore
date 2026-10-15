@@ -1,0 +1,4 @@
+# local only — não subir no GitHub
+__pycache__/
+*.pyc
+*.log
