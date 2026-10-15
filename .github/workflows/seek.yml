@@ -1,0 +1,39 @@
+name: seek sniper 24/7
+
+on:
+  schedule:
+    - cron: "*/5 * * * *"
+  workflow_dispatch:
+
+jobs:
+  snipe:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    timeout-minutes: 5
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+
+      - name: setup python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: install deps
+        run: pip install -r requirements.txt
+
+      - name: run seek (1 rodada)
+        env:
+          WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}
+        run: python main.py --once --no-browser --no-sound
+
+      - name: commit seen/cache
+        if: always()
+        run: |
+          git config user.name "nyx sniper"
+          git config user.email "nyx@seek.local"
+          git add seen.json cache_hits.json || true
+          git diff --staged --quiet && echo "nada novo" && exit 0
+          git commit -m "seek: update seen [skip ci]"
+          git push
